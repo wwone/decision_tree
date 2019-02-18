@@ -1,1 +1,1 @@
-This directory will contain the source, which is a single Java program.
+This directory will contain the source for the primary program, which is a single Java file. There is an additional Java object present that is used internally. This object was taken from my AUTHOR project.
