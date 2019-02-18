@@ -1,0 +1,2 @@
+# decision_tree
+Java code to create a "decision tree" website. The created HTML static pages will be of two types: (1) queries, where the use will be asked a question, and answer "yes" or "no". (2) endpoints, where the user will be shown a description of the result of their yes/no entries. Other static HTML pages may link into any of the query or endpoint pages, and the query and endpoint pages may contain any HTML desired.
