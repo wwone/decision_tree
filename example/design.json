@@ -1,0 +1,1209 @@
+{
+"date":[
+"Tue Mar  5 15:50:24 MST 2019"],
+
+"copyright":[
+"<meta name=\"copyright\" content=\"Bob Swanson, 2019, but made freely available on GitHub under the MIT license\"/>"],
+
+"design_doc_queries":[
+	"modified 3/5/2019, by adding new fields",
+	"the layout of the queries is as follows:",
+	"",
+	"queries contains arrays of query items ",
+	"",
+	"each query item is an array of strings ",
+	"1 - name of query (ALWAYS starts with the word 'query')",
+	   "the query tree always starts with 'query1')",
+	"2 - TITLE for the web page",
+	"3 - additional description for the web page (added to boilerplate, which see)",
+	"4 - additional keywords for the web page (added to boilerplate, which see, it already has a comma)",
+	"5 - question HTML code, array of strings",
+	"6 - YES prompt and destination, array of strings:",
+	"    1 - YES wording",
+	"    2 - name of destination (MUST start with 'query' or 'endpoint')",
+	"7 - NO prompt and destination, array of strings:",
+	"    1 - NO wording",
+	"    2 - name of destination (MUST start with 'query' or 'endpoint')"
+],
+
+"queries":
+[
+["query1",
+"First Question for Machine Cancel Finder",
+"This is the start of the Machine Cancel Finder, essentially question 1.",
+"straight-line cancel, horizontal bars, circle postmark",
+["<p><b>Question:</b> Is the cancellation (killer) made up of horizontal straight lines, and the postmark (town and date) inside a circle?<br/><br/>",
+"Like this?<br/><br/>",
+"<img src=\"machines/amer6bar.gif\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+"Now, please be sure. The postmark must be a circle,</p>",
+"<p style=\"clear:left;\"> ",
+" <b>not</b> an oval&nbsp;&nbsp; <img src=\"machines/barry_oval.jpg\" alt=\"[oval postmark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+" or square box &nbsp;&nbsp;<img src=\"machines/barry_rectilinear.jpg\" alt=\"[linear/box postmark]\"/>.  </p>",
+"<p style=\"clear:left;\"> ",
+"The cancellation must be horizontal lines, <b>not</b> lines at an angle &nbsp;&nbsp;<img src=\"machines/barry_slant_killer.jpg\" alt=\"[angled lines]\"/></p>",
+"<p style=\"clear:left;\"> ",
+" or flag-shaped &nbsp;&nbsp;<img src=\"machines/american_flag_killer.jpg\" alt=\"[flag]\"/></p>",
+"<p style=\"clear:left;\"> ",
+", or wavy lines &nbsp;&nbsp;<img src=\"machines/american_wavy.jpg\" alt=\"[wavy]\"/></p>",
+"<p style=\"clear:left;\"> ",
+", or a printed slogan of some kind &nbsp;&nbsp;<img src=\"machines/slogan2.jpg\" alt=\"[slogan]\"/></p>"],
+[ "Yes [postmark is in a circle and cancellation is straight horizontal lines]","query2"],
+["No [not a circle with horizontal lines]",
+"endpointMORE"]
+],
+["query2",
+"Circle Machine Cancel Questions",
+"This page asks if the day and time are in one continuous line on a machine cancel.",
+"continuous, day, time, circle cancel",
+["<p><b>Question:</b> Are the day and time in one continuous single line inside (or crossing) the postmark circle? (Note that the year and/or month may start or end outside the circle, but the entire date line remains one single continuous line.)<br/><br/></p>",
+"<p style=\"clear:left;\"> ",
+"<img  src=\"machines/time_cummins_inside.jpg\"/><br/></p>",
+"<p style=\"clear:left;\"> ",
+ " <img src=\"machines/time_cummins_both.jpg\"/><br/></p>"],
+[ "Yes [day and time in one continuous line]","endpointTIME_CUMMINS"],
+["No [day and time on different lines]","query3"]
+],
+["query3",
+"Circle Machine Cancel Questions for Date in Dial",
+"Checking for the year being split in the dial, rather than as a single line during the machine cancel query.",
+"year, year date, year in postmark",
+["<p>",
+"Your example does not have the day and time in the same",
+"line inside the circular postmark. Well, let's try",
+"another test.",
+"    </p>",
+"<p><b>Question:</b> Is the year date split into two sets of digits, one pair on the lower left and the other on the lower right of the circular postmark?",
+"<p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barry_circle_split_year.jpg\"/></p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p>"],
+[ "Yes [year date is split as shown]","endpointBARRY_CIRCLE"],
+["No, [year date contains all 4 digits together]","query4"]
+],
+["query4",
+"Circle Machine Cancel Questions for Year in Dial",
+"Asking if the year is in an arc at the bottom of the circular postmark.",
+"postmark, circle, year in arc, circular, curved year",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark, nor is the year date split into two groups of digits. Well, onward and upward.",
+"    </p>",
+"<p><b>Question:</b> Is the year complete in an arc at the bottom of the circular dial? ",
+"<p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/international_year_arc.jpg\"/></p>"],
+[ "Yes [year is in an arc at the bottom]","query5"],
+["No, [year is in a straight line somewhere inside dial]","query8"]
+],
+["query5",
+"Circle Machine Cancel Questions for Service Letters/Numbers in Bars",
+"Check if the horizontal bar killer has service letters and/or numbers in it.",
+"service letter, service number, machine number, opening in die, killer bars",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark (or beyond the right edge of the postmark). The year date in the circular postmark is not split into two groups of digits. However, there is a year date present formed in an arc at the bottom of the dial.",
+"    </p>",
+"<p><b>Question:</b> Do the killer bars contain gaps that have a machine number and/or service letters in them?",
+"<p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/bar_num.jpg\"/></p>"],
+
+[ "Yes [killer bars have gaps with a number or letter like this machine cancel] ","endpointINTERNATIONAL"],
+["No, [killer bars are complete, no letter or number] ","query7"]
+],
+["query7",
+"Circle Machine Cancel Questions for AM/PM Time Displayed",
+"Checking if the time is displayed with AM/PM or just P or A",
+"am, pm, time, postmark dial, time designation",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark, nor is the year date split into two groups of digits. There is a year date present formed in an arc at the bottom of the dial. The killer bars are horizontal, and are made up of simple lines.",
+"    </p>",
+"<p><b>Question:</b> Does the time in the dial give the A.M. and P.M. values as single letters, such as '--A' or '--P'?",
+"<p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/doremus_time.jpg\"/></p>"],
+[ "Yes [time is given with 'A' or 'P' for A.M. or P.M." ,"endpointDOREMUS_EXP"],
+["No, [time is shown with more than a single letter for A.M. or P.M.]","endpointUNIVERSAL"]
+],
+["query8",
+"Circle Machine Cancel Questions for Year Display",
+"Check if the year is a single line at the bottom of the dial with <b>nothing else</b> below it.",
+"year, circular postmark, year in a single line by itself",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark, nor is the year date split into two groups of digits. Also, the year date present was not formed as an arc at the bottom of the dial.",
+"    </p>",
+"<p><b>Question:</b> Is the year formed as a straight line above the bottom of the dial, with <b>nothing else</b> below it?",
+"<p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/straight_year.jpg\"/></p>"],
+[ "Yes [year as single line at bottom of dial with nothing else below it]", "query9" ],
+["No, [year not single line at bottom of dial]","query12"]
+],
+["query9",
+"Circle Machine Cancel Questions for Number of Bars",
+"Check the number of bars in the killer.",
+"horizontal lines, killer bars, number of killer bars",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark, nor is the year date split into two groups of digits. Also, the year date present is not formed as an arc at the bottom of the dial, but rather it is in a single line at the very bottom of the dial.",
+"    </p>",
+"<p><b>Question:</b> Does the killer have just 6 horizontal bars?",
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/straight_year.jpg\"/></p> --></p>"],
+[ "Yes [killer has exactly 6 bars ]","endpointAMERICAN"],
+
+["No, [killer has greater or fewer than 6 bars]","endpointDOREMUS_F"]
+],
+["query12",
+"Circle Machine Cancel Questions for Cancel from Year 1905 or Earlier",
+"Check date of machine cancellation, for 1905 or earlier.",
+"1905, date, date of usage, date of machine cancel",
+["<p>",
+"Your example does not have the day and time in the same line inside the circular postmark, nor is the year date split into two groups of digits. Also, the year date present was not formed as an arc at the bottom of the dial, or in a single line at the bottom of the dial.",
+"    </p>",
+"<p><b>Question:</b> Is the postmark dated 1905 or earlier?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/straight_year.jpg\"/></p> --></p>"],
+[ "Yes [year is 1905 or earlier]","query13"],
+
+["No, [year is later than 1905]","query24"]
+],
+["query13",
+"Circle Machine Cancel Questions for Cancel With Arcs",
+"Check if the circular machine cancel has arcs within the dial.",
+"arc, circular postmark with arcs",
+["<p>", 
+"Your example has the year in a straight line, but it is not alone at the bottom of dial. Your example is dated 1905 or earlier.",
+"    </p>",
+"<p><b>Question:</b> Does the postmark show arcs within the dial?  ",
+
+" <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> </p>"],
+[ "Yes [there are arcs within the dial]","endpointBARR_FYKE"],
+
+["No, [there are <b>no</b> arcs within the dial]","query15"]
+],
+["query15",
+"Circle Machine Cancel Questions for Cancel Bar Count",
+"Check for exactly 6 bars in the horizontal line killer.",
+"killer bars, count killer bars",
+["<p>", 
+"Your example is dated 1905 or earlier, and does not have arcs in the dial.",
+"    </p>",
+"<p><b>Question:</b> Does the killer have exactly 6 bars?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> --> </p>"],
+[ "Yes [killer has 6 bars ]","endpointCOLUMBIA"],
+
+["No, [killer does <b>not</b> have exactly 6 bars]","query17"]
+],
+["query17",
+"Circle Machine Cancel Questions for Cancel Bar Height",
+"Check height of horizontal bar killer.",
+"height of horizontal bar killer, horizontal bar killer",
+["<p>", 
+"Your example is dated 1905 or earlier, and does not have arcs in the dial, nor does it have 6 bars in the killer.",
+
+"    </p>",
+"<p><b>Question:</b> Is the height of the killer bars less than 18 mm?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> --> </p>"],
+[ "Yes [killer bars are less than 18mm in height]","endpointCOLUMBIA2"],
+
+["No, [killer bars are greater than 18mm in height]","query18"]
+],
+["query18",
+"Circle Machine Cancel Questions for Cancel Bar Count",
+"Check the count of bars in the horizontal bar killer.",
+"number of bars in horizontal bar killer, horizontal bar killer",
+["<p>", 
+"Your example is dated 1905 or earlier, and does not have arcs in the dial, nor does it have 6 bars in the killer. The killer bars are greater than 18 mm in height.",
+"    </p>",
+"<p><b>Question:</b> Are there exactly 8 killer bars?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> --> </p>"],
+[ "Yes [there are exactly 8 killer bars ]","endpointBARR_FYKE8"],
+
+["No, [there are more than, or fewer than, 8 killer bars ]","query21"]
+],
+["query21",
+"Circle Machine Cancel Questions for Cancel Bar Height",
+"Check height of the horizontal bar killer. ",
+"height of bars, height of horizontal bar killer, horizontal bar killer",
+["<p>", 
+"Your example is dated 1905 or earlier, and does not have arcs in the dial, nor does it have 6 bars in the killer. The killer bars are greater than 18 mm in height, and there are more or fewer than 8 bars.",
+"    </p>",
+"<p><b>Question:</b> Is the height of the killer bars greater than 20 mm?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> --> </p>"],
+[ "Yes [the killer bars are greater than 20mm in height]","endpointDOREMUS_A"],
+
+["No, [the killer bars are less than 20mm in height]","endpointBARR_FYKE_L20"]
+],
+["query24",
+"Circle Machine Cancel Questions for Cancel Bar Size",
+"Check height of horizontal bar killer.",
+"height of horizontal bar killer, horizontal bar killer",
+["<p>", 
+"Your example is dated after 1905, and the year is one line, but it is not alone at the very bottom of the dial.",
+"    </p>",
+"<p><b>Question:</b> Is the height of the killer bars greater than 20 mm?",
+
+"<!-- <p style=\"clear:left;\"> ",
+"<br/><img alt=\"machine cancel\" src=\"machines/barr_fyke_bars_in_dial.jpg\"/></p> --> </p>"],
+[ "Yes [killer bars are greater than 20mm height]","endpointCOLUMBIA_G20"],
+
+["No, [killer bars are less than 20mm height]","endpointTIME_CUMMINS_J"]
+],
+["query300",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Cancel",
+"Identify Circular Postmark with Wavy Line Cancel",
+"circular postmark, wavy line, wavy line killer ,wavy",
+
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. There are five possible manufacturers of this machine. Start the search by answering the following question:",
+"    </p>",
+"<p><b>Question:</b> Does the year date appear on its own line near, or at the bottom of the postmark dial?",
+"<br/><br/>",
+"<img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p>"],
+[ "Yes [year date line is near or at the bottom of the dial]","query301"],
+
+["No, [year date line is not near or at the bottom of the dial]","query302"]
+],
+["query301",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Cancel Bar Count",
+"Identify Circular Postmark with Wavy Line Cancel by counting bars",
+"circular postmark, wavy line, killer bar count, wavy line killer ,wavy",
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. The year date line appears alone at the bottom of the circular postmark.",
+"    </p>",
+"<p><b>Question:</b> Are there more than 6 wavy bars are in the killer?",
+
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p> -->"],
+[ "Yes [There are more than 6 wavy bars]","endpointINTERNATIONAL_EARLY_AMERICAN"],
+
+["No, [There are 6 or fewer wavy bars]", "query3001"]
+],
+["query302",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Cancel Bar Height",
+"Identify Circular Postmark with Wavy Line Cancel by measuring bar height.",
+"circular postmark, wavy line, killer bar height, wavy line killer ,wavy",
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. There are five possible manufacturers of this machine. ",
+"    </p>",
+"<p><b>Question:</b> Is the distance from the postmark to the killer bars greater than 7 mm?",
+
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p> -->"],
+[ "Yes [more than 7 mm between postmark and killer bars]","endpointUNIVERSAL_TYPICAL"],
+["No [7 mm or less between postmark and killer bars]","query303"]
+
+],
+["query303",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Killer, Year Check",
+"Identify Circular Postmark with Wavy Line Cancel by checking year display.",
+"circular postmark, wavy line, year display , wavy line killer ,wavy",
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. The year date is not alone at the bottom of the circular dial, and the distance between postmark and killer bars is 7mm or less.",
+"    </p>",
+"<p><b>Question:</b> Is the year date split into two sets of digits?",
+
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> -->",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p> "],
+[ "Yes [year date is split into two sets of digits]","query304"],
+["No [year date is on one line]","endpointCOLUMBIA_WAVY"]
+
+],
+["query304",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Killer, Count Bars",
+"Identify Circular Postmark with Wavy Line Cancel by counting wavy killer bars.",
+"circular postmark, wavy line, count killer bars, wavy line killer ,wavy",
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. The year date is not alone at the bottom of the circular dial, and the distance between postmark and killer bars is 7mm or less. In addition, the year date is split into two sets of digits.",
+"    </p>",
+"<p><b>Question:</b> Are there more than 6 wavy killer bars?",
+
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/>--> </p> "],
+[ "Yes [there are more than 6 wavy killer bars]","endpointAMERICAN_WAVY"],
+["No [there are 6 or fewer wavy killer bars]","endpointBARRY_CIRCLE_W"]
+
+],
+["query3001",
+"Machine Cancel Identifier - Circular Postmark, Wavy Line Cancel Bar Count is 6",
+"Identify Circular Postmark with Wavy Line Cancel by checking if there are 6 wavy bars",
+"circular postmark, wavy line, killer bar count, wavy line killer ,wavy",
+["<p>", 
+"Your example has a wavy line killer (cancel) and a circular postmark. The year date line appears alone at the bottom of the circular postmark. There are 6 or fewer wavy bars.",
+"    </p>",
+"<p><b>Question:</b> Are there exactly 6 wavy bars are in the killer?",
+
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/></p> -->"],
+[ "Yes [There are exactly 6 wavy bars]","endpointBARRY_CIRCLE_W"],
+
+["No, [There are fewer than 6 wavy bars]", "endpointBARNARD"]
+],
+["query400",
+"Machine Cancel Identifier - Rectilinear Postmark, Horizontal Line Killer",
+"Identify Rectilinear Postmark with Horizontal Line Killer",
+"rectilinear postmark, horizontal line postmark, horizontal line, horizontal line killer ",
+
+["<p>", 
+"Your example has a killer (cancel) made up of horizontal lines.  The postmark is made up of horizontal lines of text, with city, date, etc. (also called 'rectilinear').  There are a number of possible manufacturers of this machine. Start the search by answering the following question:",
+
+"    </p>",
+"<p><b>Question:</b> Does the time appear on its own line of the postmark?",
+"<br/><br/>",
+"<img src=\"machines/time_line_sep1.jpg\" alt=\"[time line from rectilinear cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/time_not_alone.jpg\" alt=\"[time line from rectilinear cancel]\"/> </p>",
+"<!-- <p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/>  </p> -->"],
+[ "Yes, [time on separate line of postmark] ","endpointCOLUMBIA_RECT"],
+
+["No, [time does not appear or is not on separate line]","query401"]
+
+],
+["query401",
+"Machine Cancel Identifier - Rectilinear Postmark, Horizontal Line Killer",
+"Identify Rectilinear Postmark with Horizontal Line Killer",
+"rectilinear postmark, horizontal line postmark, horizontal line, horizontal line killer ",
+
+["<p>", 
+"Your example has a killer (cancel) made up of horizontal lines. The postmark is made up of horizontal lines of text (also called 'rectilinear'). The time is either not present, or does not occupy its own line of the cancel.", 
+
+"    </p>",
+"<p><b>Question:</b> Are there any horizontal bars above and/or below the city name/date?",
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/> --> </p>"],
+[ "Yes, [there are horizontal bars in the postmark section above or below the city and date] ","query402"],
+
+["No, [no additional horizontal bars above or below the city/date]", "endpointPERF_MILAM_WHITE"]
+
+],
+["query402",
+"Machine Cancel Identifier - Rectilinear Postmark, Horizontal Line Killer",
+"Identify Rectilinear Postmark with Horizontal Line Killer",
+"rectilinear postmark, horizontal line postmark, horizontal line, horizontal line killer ",
+
+["<p>", 
+"Your example has a killer (cancel) made up of horizontal lines. The postmark is made up of horizontal lines of text (also called 'rectilinear'). The time is either not present or is not on its own line of the cancel. There are horizontal bars present in the postmark area.",
+
+"    </p>",
+"<p><b>Question:</b> Is the cancel (killer) made up of 8 horizontal bars arranged in 4 pairs?",
+"<br/><br/>",
+"<img src=\"machines/pneumatic_8bar.jpg\" alt=\"[pneumatic horizontal line killer]\"></p>",
+"<!-- <p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/>  </p> -->"],
+[ "Yes, [killer is 8 bars arranged in 4 pairs] ","endpointPNEUMATIC"],
+
+["No, [killer has a different configuration]","endpointBARRY_RECT"]
+
+],
+["query500",
+"Machine Cancel Identifier - Circular Postmark, Vertical Line Killer",
+"Identify Circular Postmark with Vertical Line Killer",
+"circular postmark, vertical line, vertical line killer ",
+
+["<p>", 
+"Your example has a killer (cancel) made up of vertical lines. The postmark is made up of a circle with the city, date, etc in it. There are two possible manufacturers of this machine. Answer the following question:",
+
+"    </p>",
+"<p><b>Question:</b> Are the killer bars as tall as the circular postmark?",
+"<br/><br/>",
+"<!-- <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/> --> </p>"],
+[ "Yes, bars are just as tall as the circle. ","endpointBARR_FYKE_VERTICAL"],
+
+["No, bars shorter than the circular postmark.","endpointDOREMUS_E"]
+
+],
+["query700",
+"Machine Cancel Identifier - Service Marking with Circular Postmark",
+"Identify Circular Postmark with service marking",
+"circular postmark, service marking, train late, received, service",
+
+["<p>", 
+"Several manufacturers' machines impressed service markings. These type of markings include: 'Received', 'Received (with station/branch)', 'Train Late', and so on. These markings are usually impressed on the back of a cover. It is best to use the dial design to help identify these machines, since the killer bars are not present. Sometimes, a receiving mark is the postmark dial only. This method is a greater challenge to the collector, since many dials look alike.</p>",
+"<p>To help identify which manufacturer made this machine, please answer the following question:",
+"    </p>",
+"<p><b>Question:</b> Is the year date in the dial, straight, or in a curve at the bottom?",
+"<br/><br/>",
+" <img src=\"machines/international_year_arc.jpg\" alt=\"[example cancel]\"></p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/straight_year.jpg\" alt=\"[year mark]\"/> </p>",
+"<p style=\"clear:left;\"> ",
+"<br/> <img alt=\"machine cancel\" src=\"machines/barry_circle_split_year2.jpg\"/>  </p>"],
+[ "Yes, Year date is straight across dial (continuous or split) ","endpointSERVICE_STRAIGHT"],
+
+["No, Year date is curved at bottom of dial (or no dial at all) ","endpointSERVICE_CURVED"]
+
+]
+],
+
+"design_doc_endpoints":[
+	"modified 3/5/2019, by adding fields",
+	"the layout of the endpoints is as follows:",
+	"",
+	"endpoints contains arrays of endpoint items ",
+	"",
+	"each endpoint item is an array of strings ",
+	"1 - name of endpoint (ALWAYS starts with the word 'endpoint')",
+	"2 - title for web page",
+	"3 - additional description for web page (in addition to boilerplate, which see)",
+	"4 - Additional keywords for web page (in addition to boilerplate, which see, note comma already present)",
+	"5 - final HTML code, array of strings"
+],
+
+"endpoints":[
+["endpointTIME_CUMMINS",
+"Time-Cummins Machine Cancel",
+"Discussion of Time-Cummins Machine Cancel",
+"time-cummins, time marking company, cummins machine cancel",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Time Marking/Cummins</h3>",
+        "<p>Your machine cancel was made by a machine of the Time Marking and/or",
+	"Cummins companies.</p>",
+	"<br/><br/> <img src=\"http://swansongrp.com/pics/time_cummins_year_in_killer.jpg\"/><p class=\"caption\">A Time-Cummins with the Year Slug Just to the Right of the Circular Dial</p><br/><img src=\"http://swansongrp.com/machines/time_cummins_exact.jpg\"/><p class=\"caption\">A Time-Cummins with the Month to the Left of the Dial, and the Year Slug Just to the Right of the Circular Dial (Also exact time in dial)</p><br/><img src=\"http://swansongrp.com/pics/time_box2.jpg\"/><p class=\"caption\">A Time-Cummins with a Box-Shaped Postmark</p><br/><img src=\"./machines/cummins_j.jpg\"/><p class=\"caption\"> An Example of the Time-Cummins Type 'J' Machine (later style, date <b>not</b> in single line)</p><br/><img src=\"./machines/time_c_oval.gif\"/><p class=\"caption\"> A Time-Cummins Oval Postmark </p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#time-cummins\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointTIME_CUMMINS_J",
+"Time Cummins Type 'J' Machine Cancel",
+"Discussion of Time Cummins Type 'J' Machine Cancel",
+"time-cummins, cummins machine cancel, type j, type j time-cummins machine cancel, time marking company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Time Marking/Cummins Type 'J'</h3>",
+"<p>Your machine cancel was made by a Time/Cummins machine. This type of machine was in use later than the more typical large-dial Time/Cummins machine.",
+	"</p>",
+	"<br/> <img src=\"./machines/cummins_j.jpg\"/><p class=\"caption\"> An Example of the Time-Cummins Type 'J' Machine (later style, date <b>not</b> in single line)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"e_TIME_CUMMINS.html\"> on this Time-Cummins Specialty Web page.</a> </p>"
+]
+],
+["endpointTIME_CUMMINS_OVAL",
+"Time Cummins Machine Cancel with Oval Postmark",
+"Discussion of Time Cummins Machine Cancel with Oval Postmark",
+"time-cummins, cummins machine cancel, oval, oval postmark, time-cummins machine cancel, time marking company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Time Marking/Cummins With Oval Postmark</h3>",
+"<p> Your machine cancel was made by a Time-Marking/Cummins machine. This type of machine with an oval postmark is very uncommon. This oval postmark was in use in only two small towns in New York state.",
+	"</p>",
+	"<br/> <img src=\"./machines/time_c_oval.gif\"/><p class=\"caption\"> An Example of the Time-Cummins Oval Postmark (uncommon)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"e_TIME_CUMMINS.html\"> on this Time-Cummins Specialty Web page.</a> </p>"
+]
+],
+["endpointBARR_FYKE",
+"Barr-Fyke Machine Cancel",
+"Discussion of Barr-Fyke Machine Cancel",
+"Barr-Fyke, kansas city, missouri",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barr-Fyke</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Barr-Fyke Machine Company of Kansas City, Missouri. The more common form of this machine's impression has vertical bars for the killer, rather than than the horizontal bars of this type. The presence of arcs in the dial is often an indicator of the Barr-Fyke machine.",
+	"</p>",
+	"<br/><img src=\"machines/barrfa.gif\"/><p class=\"caption\">Barr-Fyke Machine Impression (Arcs in Dial)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barr-fyke\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARR_FYKE_VERTICAL",
+"Barr-Fyke Machine Cancel with Vertical Bar Killer",
+"Discussion of Barr-Fyke Machine Cancel with vertical bar killer",
+"Barr-Fyke, vertical bar killer, vertical bars, kansas city, missouri",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barr-Fyke with Vertical Bar Killer</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Barr-Fyke Machine Company of Kansas City, Missouri. This cancel is identified by the presence of tall vertical bars for the killer. Another form of the machine's impression has <a href=\"e_BARR_FYKE.html\">a killer made up of horizontal bars</a>. The presence of arcs in the dial can also be an indicator of the Barr-Fyke machine.</p>",
+
+	"<br/><img src=\"machines/barr_fyke_vertical.jpg\"/><p class=\"caption\">Barr-Fyke Machine Impression with Vertical Bars Killer </p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barr-fyke\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARR_FYKE8",
+"Barr-Fyke Machine Cancel with 8-Bar Killer",
+"Discussion of Barr-Fyke Machine Cancel with an 8-bar killer.",
+"Barr-Fyke, killer bars, 8 killer bars, kansas city, missouri",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barr-Fyke with 8-Bar Killer</h3>",
+"<p>Your machine cancel was made by a machine sold by the Barr-Fyke Machine Company of Kansas City, Missouri. This example is rare, in that it has a killer with 8 horizontal bars. The more common form of this machine's impression has vertical bars for the killer, rather than than the horizontal bars of this type.",
+	"</p>",
+	"<br/><img src=\"machines/barrfb.gif\"/><p class=\"caption\">Barr-Fyke Machine Impression (8 Bars in Killer)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barr-fyke\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARR_FYKE_L20",
+"Barr-Fyke Machine Cancel with Killer Less than 20mm in Height",
+"Discussion of Barr-Fyke Machine Cancel with an killer bars less than 20mm in height.",
+"Barr-Fyke, killer bars, height of killer bars, kansas city, missouri",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barr-Fyke with Killer Less than 20mm in Height</h3>",
+"<p>Your machine cancel was made by a machine sold by the Barr-Fyke Machine Company of Kansas City, Missouri. The identifying feature of this impression is that the killer bars are less than 20 mm in height. The more common form of this machine's impression has vertical bars for the killer, rather than than the horizontal bars of this type.",
+	"</p>",
+	"<br/><img src=\"machines/barrfc.gif\"/><p class=\"caption\">Barr-Fyke Machine Impression (Killer Bars Less than 20mm in Height)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barr-fyke\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA",
+"Columbia Machine Cancel",
+"Discussion of Columbia Machine Cancel",
+"Columbia, silver creek, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia </h3>",
+"<p>Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generate a wide variety of markings. This earlier marking can be confused with those made by other manufacturers: just one of the reasons why this 'machine finder' system was devised. Note that these 6-bar Columbia machine impressions are quite uncommon",
+	"</p>",
+	"<br/><img src=\"machines/columb2.gif\"/><p class=\"caption\">Columbia Machine Impression (Easily Confused with Other Manufacturers)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA_RECT",
+"Columbia Rectilinear Machine Cancel",
+"Discussion of Columbia Rectilinear Machine Cancel",
+"Columbia, silver creek, rectilinear, straight line, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia Rectilinear</h3>",
+"<p> Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generated a wide variety of markings. In this case, the postmark is made up of a series of parallel lines of text (rectilinear), while the cancel (killer) is a set of wavy lines. The killer lines may be arranged in pairs, or evenly spaced.</p>",
+"<p> The rectilinear postmarks of the Columbia machine did NOT have horizontal line above and/or below the lines of text. This is in contrast to the <a href=\"e_BARRY_RECT.html\"> Barry machine.</p>",
+	"<br/><br/><img src=\"machines/columbia_st_wavy.gif\"/><p class=\"caption\"> The Columbia rectilinear with horizontal wavy lines cancel machine impression </p>",
+	"<br/><br/><img src=\"machines/columbia_st_st.jpg\"/><p class=\"caption\"> The Columbia rectilinear with horizontal lines cancel machine impression </p>",
+	"<br/><br/><img src=\"machines/columbia_horizontal_lines.jpg\"/><p class=\"caption\"> The Columbia rectilinear with horizontal lines cancel machine impression.  (The horizontal lines are arranged in pairs, rather than being uniformly spaced).  </p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA_WAVY",
+"Columbia Machine Cancel With Wavy Line Killer",
+"Discussion of Columbia Machine Cancel with wavy line killer",
+"Columbia, wavy line killer, silver creek, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia with Wavy Line Killer</h3>",
+"<p>Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generate a wide variety of markings. This later marking can be confused with those made by other manufacturers: just one of the reasons why this 'machine finder' system was devised. The year date can be seen to occupy one line near the bottom, but there are other styles where <a href=\" machines/columbia_wavy2.gif \">the entire date is on one line with the year as only two digits</a>.",
+	"</p>",
+	"<br/><img src=\"machines/columbia_wavy.gif\"/><p class=\"caption\">Columbia Machine Impression with Wavy Line Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA_MIXED",
+"Columbia Machine Cancel With Mixed Wavy and Vertical Line Line Killer",
+"Discussion of Columbia Machine Cancel with mixed vertical line and wavy line killer",
+"Columbia, wavy line killer, mixed killer bars, vertical bar killer, silver creek, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia with Mixed Wavy Line and Vertical Bar Killer</h3>",
+"<p> Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generate a wide variety of markings. In this case, the cancel (killer) is of an unique design in this era of machine cancels. It is made up of alternating vertical lines and horizontal wavy lines. Sometimes, there are 2 vertical lines, other die types have 3 vertical lines. Often there are 6 horizontal wavy lines, but some dies have 7 horizontal wavy lines.</p>",
+
+"<p>The circular postmark dial is typical of the Columbia machines of this time period.</p>",
+	"</p>",
+	"<br/><img src=\"machines/columbia_mixed3.jpg\"/><p class=\"caption\">Columbia Machine Impression with Mixed Vertical Bars and Wavy Line Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA_G20",
+"Columbia Machine Cancel with Killer Bars Greater than 20mm in Height",
+"Discussion of Columbia Machine Cancel with Killer Bars Greater than 20mm in Height",
+"Columbia, killer bars greater than 20mm in height, height of killer bars,silver creek, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia (Killer Bars Greater than 20mm in Height)</h3>",
+"<p>Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generate a wide variety of markings. This earlier marking can be confused with those made by other manufacturers: just one of the reasons why this 'machine finder' system was devised.</p>",
+"<p><b>Sorry, I don't have a picture of this Columbia impression.</b> It would be dated 1906 or later, and have straight-line killer bars taller than 20 mm. If anyone can send me a nice photocopy (or better yet, a scan in TIFF format), I would greatly appreciate it.",
+	"</p>",
+	"<br/> <!-- <img src=\"machines/columb2.gif\"/><p class=\"caption\">Columbia Machine Impression (Easily Confused with Other Manufacturers)</p> -->",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointCOLUMBIA2",
+"Columbia Machine Cancel, Different Type",
+"Discussion of a different type of a Columbia Machine Cancel.",
+"Columbia, cancel type, smaller killer bars, silver creek, new york, columbia postal supply company",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Columbia, Different Type </h3>",
+"<p>Your machine cancel was made by a machine sold by the Columbia Postal Supply Company of Silver Creek, New York. The machines made by this company generate a wide variety of markings. This earlier marking can be confused with those made by other manufacturers: just one of the reasons why this 'machine finder' system was devised. The straight-line killer bars that are less than 18 mm in height appear more often than other Columbia types of this era.",
+	"</p>",
+	"<br/><img src=\"machines/columb3.gif\"/><p class=\"caption\">Columbia Machine Impression (Smaller Killer Bar Height)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#columbia\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointAMERICAN",
+"American Straight-Line Machine Cancel",
+"Discussion of American Straight-Line Machine Cancel",
+"American,  Straight-Line, horizontal bar killer, American Postal Machine Company, not flag, non-flag",
+[
+        "<h3> U.S. Machine Cancel Identifier -- American Straight-Line</h3>",
+        "<p> Your machine cancel was made by a machine sold by the American Postal Machine Company. The most common, and most popular collected machine is the American 'flag' cancellation. This type, however, with a 6-bar straight-line killer, is far less common. Note: the American company made machines that impressed various types of straight-line cancels in the late 1800's. These are not normally included in my 'finder', since they fall before the Postcard Era. These later straight-line cancellations appear from about 1909 to around 1920.", 
+	"</p>",
+	"<br/><img src=\"machines/amer6bar.jpg\"/><p class=\"caption\">American Machine with 6 Horizontal Bar Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#americann\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointAMERICAN_WAVY",
+"American Wavy-Line Machine Cancel (Not Flag)",
+"Discussion of American Wavy-Line Machine Cancel (Not Flag)",
+"American,  wavy line killer, American Postal Machine Company, not flag, non-flag",
+[
+        "<h3> U.S. Machine Cancel Identifier -- American Wavy-Line Killer (Not Flag)</h3>",
+        "<p> Your machine cancel was made by a machine sold by the American Postal Machine Company. The most common, and most popular collected machine is <a href=\"http://swansongrp.com/pics/a14.gif\"> the American flag cancellation</a>. This type, however, has the same dial as many flag machines, but the killer is made up of wavy lines. There is another type (far less common) <a href=\"machines/amer6bar.gif\">with a 6-bar straight-line killer</a>.</p>",
+"<p> The wavy-line American cancels are seen quite commonly from Philadelphia, and a few are seen from Berkeley, California. It is said that the Philadelphia cancels were designed without the flag design to satsify the requests of the pacifist Quakers of that area. These cancels are seen from around 1896 to 1910. I have seen one example from Highland Park, Illinois, dated in 1915.",
+	"<br/><br/><img src=\"machines/american_wavy.gif\"/><p class=\"caption\">American Machine with Dial of Flag Cancel, but with Horizontal Wavy Bar Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#americann\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARNARD",
+"Barnard Machine Cancel",
+"Discussion of Barnard Machine Cancel",
+"Barnard, american, barnard patent, gripper, gripper marks",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barnard </h3>",
+	"<p>It is possible that your cancel is the uncommon 'Barnard' type. This machine was made by the American company, using Barnard's patents. The chief identifying feature of this cancellation is the gripper marks to the left of the circular cancel dial.",
+	"</p>",
+	"<br/><img src=\"machines/barnard_fitchburg2.jpg\"/><p class=\"caption\"> American Wavy Bar Machine (Barnard Patent) from Fitchburg, 1895 (note the 'gripper' marks to the left of the circular postmark, and the use of a 5-bar wavy killer)</p>",
+	"<!-- <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#americann\"> on my Machine Web page.</a> </p> -->"
+]
+],
+["endpointDOREMUS_F",
+"Doremus Type 'F' Machine Cancel",
+"Discussion of Doremus Type 'F' Machine Cancel",
+"Doremus,  Type 'F', doremus company, not vertical bars",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Doremus Type 'F'</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Doremus Company. The more common form of this machine's <a href=\"e_DOREMUS_E.html\">impression has vertical bars for the killer</a>, rather than than the horizontal bars of this type. ",
+	"</p>",
+	"<br/><img src=\"machines/doref.gif\"/><p class=\"caption\">Doremus Type 'F' with Horizontal Bar Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#doremus\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointDOREMUS_E",
+"Doremus Type 'E' Machine Cancel",
+"Discussion of Doremus Type 'E' Machine Cancel",
+"Doremus,  Type 'E', doremus company, vertical bars , vertical bar killer",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Doremus Type 'E'</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Doremus Company. What makes this cancel distinct, is the presence of fairly short vertical bars, rather than <a href=\"e_DOREMUS_F.html\">a killer of horizontal bars</a> (less common).",
+
+	"</p>",
+	"<br/><img src=\"machines/doremus_honolulu_example.jpg\"/><p class=\"caption\">Doremus Type 'E' with Horizontal Bar Killer</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#doremus\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointDOREMUS_A",
+"Doremus Type 'A' Machine Cancel",
+"Discussion of Doremus Type 'A' Machine Cancel",
+"Doremus,  Type 'A', doremus company, not vertical bars",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Doremus Type 'A'</h3>",
+"<p>Your machine cancel was made by a machine sold by the Doremus Company. The more common form of this machine's impression has vertical bars for the killer, rather than than the horizontal bars of this type. This example is from the first type manufactured by the Doremus Company, and can easily be mistaken for the impression of other brands of machines in use around the turn of the 20th century.",
+	"</p>",
+	"<br/><img src=\"machines/doremus2.gif\"/><p class=\"caption\">Doremus Type 'A' with Horizontal Bar Killer (Note the use of 'P' for PM in Dial)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#doremus\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointDOREMUS_EXP",
+"Doremus Experimental Machine Cancel",
+"Discussion of the rare Doremus Experimental Machine Cancel",
+"Doremus, doremus company, rare,  Experimental Machine Cancel",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Doremus Experimental</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Doremus Company. This is a very rare type of the machine used experimentally in Washington, DC. Note that it has the dial of a typical Doremus (hour in dial has 'A' or 'P' to indicate A.M. or P.M.), but has the horizontal killer bars of other Doremus devices. Typically this cancel would have the same dial but vertical killer bars (height less than diameter of dial).",
+	"</p>",
+	"<br/><img src=\"machines/doremus_washington_dc_1904_rare.jpg \"/><p class=\"caption\"> The Doremus experimental type machine with horizontal bars </p><br/>",
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#doremus\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointUNIVERSAL",
+"Universal Machine Cancel",
+"Discussion of early Universal Machine Cancel",
+"Universal, early, not wavy killer,Universal Stamping Machine Company,new york ",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Universal</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Universal Stamping Machine Company of New York. This is a very early model, and later versions of machines by this company did not impress this cancellation format. Examples of these early cancellations are uncommon.", 
+	"</p>",
+	"<br/><img src=\" http://swansongrp.com/machines/universl.gif \"/><p class=\"caption\">Early Universal Machine Impression (Uncommon)</p>",
+
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#universal\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointUNIVERSAL_TYPICAL",
+"Typical Universal Machine Cancel of the 20th Century",
+"Discussion of typical Universal Machine Cancel of the 20th century.",
+"Universal, 20th century, typical universal example, wavy killer,Universal Stamping Machine Company,new york ",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Typical Universal of the 20th Century</h3>",
+        "<p> Your machine cancel was made by a machine sold by the Universal Stamping Machine Company of New York. This is a typical model used in the 20th century.", 
+	"</p>",
+	"<br/><img src=\" machines/univers2.gif \"/><p class=\"caption\">Typical Universal Machine Impression of the 20th Century</p>",
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#universal\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointINTERNATIONAL",
+"International Machine Cancel",
+"Discussion of pre-1900 International Machine Cancel with straight-line killer",
+"International,International Postal Machine Company, pre 1900 ,horizontal line killer",
+[
+        "<h3> U.S. Machine Cancel Identifier -- International</h3>",
+        "<p>Your machine cancel was made by a machine sold by the International Postal Machine Company.</p>", 
+	"<br/><img src=\"http://swansongrp.com/machines/interna2.gif \"/><p class=\"caption\">Pre-1900 International Impression</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#international\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointINTERNATIONAL_EARLY_AMERICAN",
+"International or Early American Machine Cancel",
+"Discussion of pre-1900 International or American Machine Cancels with wavy-line killer",
+"International,International Postal Machine Company, pre 1900 ,american,wavy line killer",
+[
+        "<h3> U.S. Machine Cancel Identifier -- International or Early Amerian</h3>",
+        "<p> The actual machine for your cancel mostly depends on the date in the dial. In 1894, the American company made machines that impressed several wavy lines on the stamp (the so-called killer). Later, nearer to 1900, you will see this type of cancel made by an International machine. The wavy line killer for both brands of machine show 7 lines.",
+	"<br/><br/><img src=\"machines/american_wavy_early.jpg \"/><p class=\"caption\"> American machine from 1894 (Notice that the lines point up when near the circular postmark, and the lines terminate quite close to the postmark. The space for the numerical die takes up 3 lines.)</p>",
+"<p style=\"clear:left;\"> ",
+" <img src=\"machines/internat_std.gif\" alt=\"[international machine]\"/> </p>",
+"<p class=\"caption\">",
+"International machine cancel (Notice that the lines point down when near the circular postmark, and that there is a larger gap between the lines and the postmark, compared with the earlier American. The space for the numerical die takes up only 1 line. International killers often had an extra diespace near the bottom, the letter 'c' in this case.)</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#international\"> on my International Machine Web page</a>, or <a href=\"http://swansongrp.com/machtest/machine2.html#american\"> on my American Machine Web page</a>. </p>"
+]
+],
+["endpointBARRY_CIRCLE",
+"Barry Circle Machine Cancel",
+"Discussion of Barry Circle Machine Cancel",
+"Barry, Circle, circular postmark, not oval",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barry Circle</h3>",
+	"<img src=\"http://swansongrp.com/machines/barryc.gif\" alt=\"[barry machine cancel]\"/> <p style=\"clear:left;\">Your machine cancel was made by a Barry machine that",
+"had a circular postmark. Other Barry machines impressed",
+"<a href=\"e_BARRY_OVAL.html\"> oval postmarks</a> and <a href=\"e_BARRY_RECT.html\"> rectilinear postmarks</a>.</p>",
+	" <p> Because of potential confusion about Barry types, I've created <a href=\"http://swansongrp.com/machtest/barry_table.html\"> a web page that shows the various Barry cancelling machine types in one place.</a> </p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barry\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARRY_OVAL",
+"Barry Oval Machine Cancel",
+"Discussion of Barry Oval Machine Cancel",
+"Barry, oval, oval postmark, not circle, not straight line, not rectilinear",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barry Oval</h3>",
+	"<img src=\"machines/barry_o_st.gif\" alt=\"[barry machine cancel]\"/> <p style=\"clear:left;\"> This machine cancel was impressed by a Barry machine that had an oval postmark. The killer for this example is a set of horizontal lines. Other Barry machines impressed <a href=\"e_BARRY_CIRCLE.html\"> circular postmarks </a> and <a href=\"e_BARRY_RECT.html\"> rectilinear postmarks</a>, as well as wavy and diagonal line killers.</p>",
+"<p>Note that the example image shows two nearly horizontal lines near the year inside the oval. Not all Barry oval postmarks contained these lines.</p>",
+	" <p> Because of potential confusion about Barry types, I've created <a href=\"http://swansongrp.com/machtest/barry_table.html\"> a web page that shows the various Barry cancelling machine types in one place.</a> </p>",
+
+"<p>Barry cancels can often be identifed by the fact that the feeder mechanism for the machine was a series of pins that grabbed the card or envelope near its right edge. If there is evidence of slight pin impressions near the right edge of the card or envelope, the cancel may be a Barry.</p>",
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barry\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARRY_RECT",
+"Barry Rectilinear Machine Cancel",
+"Discussion of Barry Rectilinear Machine Cancel",
+"Barry, straight line, rectilinear postmark,not circle, not oval",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barry Rectilinear</h3>",
+	"<img src=\"machines/barry_rectilinear2.jpg\" alt=\"[barry machine cancel]\"/> <p style=\"clear:left;\"> Your machine cancel was made by a Barry machine that had a rectilinear postmark. That looks like a long word, but it simply means that the postmark was made up of several horizontal lines of text.</p>",
+"<p> The killer for this example is a set of horizontal lines. There are various mixes of cancels made by Barry machines, including those with rectilinear postmarks and wavy lines in the killer, or angled lines in the killer. Other Barry machines impressed <a href=\"e_BARRY_CIRCLE.html\">circular postmarks</a> and <a href=\"e_BARRY_OVAL.html\">oval postmarks</a>.</p>",
+
+"<p>The rectilinear postmarks of the Barry machine have horizontal lines above and/or below the lettering. This is in contrast to the rectilinear postmarks of, for instance, the <a href=\"e_COLUMBIA_RECT.html\">Columbia machine</a>, or <a href=\"e_HAMPDEN.html\">the Hampden machine</a>.</p>",
+	" <p> Because of potential confusion about Barry types, I've created <a href=\"http://swansongrp.com/machtest/barry_table.html\"> a web page that shows the various Barry cancelling machine types in one place.</a> </p>",
+
+"<p>Barry cancels can often be identifed by the fact that the feeder mechanism for the machine was a series of pins that grabbed the card or envelope near its right edge. If there is evidence of slight pin impressions near the right edge of the card or envelope, the cancel may be a Barry.</p>",
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barry\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARRY_RECT_W",
+"Barry Rectilinear Machine Cancel with Wavy Line Killer",
+"Discussion of Barry Rectilinear Machine Cancel with Wavy Line Killer",
+"Barry, wavy line, rectilinear postmark,not circle, not oval",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barry Rectilinear with Wavy Line Killer</h3>",
+	"<img src=\"machines/barry_rectilinear_wavy.jpg\" alt=\"[barry machine cancel]\"/> <p style=\"clear:left;\"> This machine cancel was impressed by a Barry machine that had an rectilinear postmark. The killer for this example is a set of wavy horizontal lines.  Other Barry machines impressed <a href=\"e_BARRY_CIRCLE.html\">circular postmarks</a> and <a href=\"e_BARRY_OVAL.html\">oval postmarks</a>.</p>",
+	" <p> Because of potential confusion about Barry types, I've created <a href=\"http://swansongrp.com/machtest/barry_table.html\"> a web page that shows the various Barry cancelling machine types in one place.</a> </p>",
+
+"<p>Barry cancels can often be identifed by the fact that the feeder mechanism for the machine was a series of pins that grabbed the card or envelope near its right edge. If there is evidence of slight pin impressions near the right edge of the card or envelope, the cancel may be a Barry.</p>",
+
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barry\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointBARRY_CIRCLE_W",
+"Barry Circle Machine Cancel with Wavy Lines Killer",
+"Discussion of Barry Circle Machine Cancel with wavy lines killer.",
+"Barry, Circle, circular postmark, wavy line killer, not oval",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Barry Circle Postmark with Wavy Line Killer</h3>",
+	"<img src=\"machines/barryc.gif\" alt=\"[barry machine cancel]\"/> <p style=\"clear:left;\"> This machine cancel was impressed by a Barry machine that had a circular postmark. The killer for this example is a set of wavy horizontal lines. Other Barry machines impressed <a href=\"e_BARRY_OVAL.html\">oval postmarks</a> and <a href=\"e_BARRY_RECT.html\">rectilinear postmarks</a>, as well as wavy and diagonal line killers.</p>",
+	" <p> Because of potential confusion about Barry types, I've created <a href=\"http://swansongrp.com/machtest/barry_table.html\"> a web page that shows the various Barry cancelling machine types in one place.</a> </p>",
+"<p>Barry cancels can often be identifed by the fact that the feeder mechanism for the machine was a series of pins that grabbed the card or envelope near its right edge. If there is evidence of slight pin impressions near the right edge of the card or envelope, the cancel may be a Barry.</p>",
+"</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#barry\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointPNEUMATIC",
+"Pneumatic Machine Cancel ",
+"Discussion of Pneumatic Machine Cancel .",
+"pneumatic, pneumatic machine cancel, rectilinear",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Pneumatic Machine</h3>",
+	"<img src=\"machines/pneumatic_example2.jpg\" alt=\"[pneumatic machine cancel]\"/> <p style=\"clear:left;\"> Your machine cancel was made by a machine sold by the Pneumatic Cancelling Machine Company of Indianapolis, Indiana. The impressions from these machines are quite distinct from other machines of the time. They are somewhat common from Indianapolis, but less so from the few other cities where they were used.",
+"</p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#pneumatic\"> on my Machine Web page.</a> </p>"
+]
+],
+["endpointREPEATING_EAGLE",
+"Milam Holmes Repeating Machine Cancel ",
+"Discussion of Milam Holmes  Machine Cancel .",
+"milam, holmes, milam holmes, repeating, eagle, repeating canceling machine",
+[
+        "<h3> U.S. Machine Cancel Identifier -- Milam Holmes Repeating Eagle Machine</h3>",
+	"<img src=\"machines/milam_holmes_experimental_machine.jpg\" alt=\"[milam holmes experimental repeating eagle machine cancel]\"/> <p style=\"clear:left;\"> This Milam and Holmes machine was experimental in nature, and is quite rare. The repeating 'eagle' cancel is quite interesting. Note that Milam and Holmes also produced <a href=\"e_PERF_MILAM_WHITE.html\">a straight-line cancel</a> (top illustration) that is also extremely rare.",
+
+"</p>"
+]
+],
+["endpointPERF_MILAM_WHITE",
+" Perfection, Milam/Holmes, or White Sewing Machine (Cheshire) Models",
+"Discussion of Other Machine Models, Such as Perfection, Milam/Holmes, or White Sewing Machine (Cheshire) ",
+"perfection, perfection machine, perfection canceller, milam holmes machine, milam, holmes, white sewing machine, cheshire, other machines, uncommon ",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Perfection, Milam/Holmes, or White Sewing Machine (Cheshire) Models</h3>",
+"<p>All possible machines here are not common. The Milam and Holmes machine is very rare. The Perfection machine is the most common of these three. The White Sewing Machine (Cheshire) company item is also rare. Note that the shape of the horizontal line killers are different for each of these machines. The lettering of the postmarks are also different.</p>",
+"<p>The Milam and Holmes company also produced a cancel with <a href=\"e_REPEATING_EAGLE.html\"> a repeating 'eagle' image</a>. These cancels are very rare.</p>",
+
+"<p>The Perfection Company sold a machine in the early part of the 20th century that was used primarily in small post offices, many of them in the Michigan area. This machine was not motor-driven, but was rather a level-action mechanical device that impressed the equivalent of a handstamp cancel.</p>",
+
+"<p>The so-called 'Cheshire' machine was made by the White Sewing Machine Company. It appears to have been used only as an experimental model.</p>",
+	"<br/><br/><img src=\"machines/milam_holmes.jpg\" alt=\"[milam holmes machine cancel]\"/> <p class=\"caption\"> Milam and Holmes Machine Impression (1898)</p>",
+	"<br/><br/><img src=\"machines/perfection_type2.jpg\" alt=\"[perfection machine cancel]\"/> <p class=\"caption\">  Perfection (Type 2) Impression </p>",
+
+	"<br/><br/><img src=\"machines/white_sewing_machine_experimental_machine.jpg\" alt=\"[white sewing machine 'cheshire' experimental machine cancel]\"/> <p class=\"caption\">  Experimental machine from the White Sewing Machine Company (Cheshire) </p>"
+
+]
+],
+["endpointPERFECTION3",
+" Perfection, Type 3 Machine",
+"Discussion of the Perfection, Type 3 Cancel ",
+"perfection, perfection machine, perfection canceller ",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Perfection Type 3 Machine</h3>",
+"<p> Your machine cancel was made by a machine sold by the Perfection Company. This machine was not motor-driven, but was rather a mechanical device that impressed the equivalent of a handstamp cancel.  These machines were sold to small-town postmasters in the early part of the 20th century, primarily in the Michigan area.</p>",
+
+	"<br/><br/><img src=\"machines/perfection_type3.jpg\" alt=\"[perfection type 3 machine cancel]\"/> <p class=\"caption\"> Perfection Type 3 Impression</p>"
+
+]
+],
+["endpointPERFECTION1",
+" Perfection, Type 1 Machine",
+"Discussion of the Perfection, Type 1 Cancel ",
+"perfection, perfection machine, perfection canceller ",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Perfection Type 1 Machine</h3>",
+"<p> Your machine cancel was made by a machine sold by the Perfection Company. This machine was not motor-driven, but was rather a mechanical device that impressed the equivalent of a handstamp cancel.  These machines were sold to small-town postmasters in the early part of the 20th century, primarily in the Michigan area.</p>",
+
+	"<br/><br/><img src=\"machines/perfection1.jpg\" alt=\"[perfection type 1 machine cancel]\"/> <p class=\"caption\"> Perfection Type 1 Impression</p>"
+
+]
+],
+["endpointPRE1900",
+" Pre-1900 Machines (Mostly American)",
+"Discussion of some mostly American machine cancel devices and impressions from the pre-1900 era in the United States.",
+"pre-1900, before 1900, united states, machine cancels, boston, american bar, barnard, barlow",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Pre-1900 Machines</h3>",
+"<p> The American company manufactured and marketed several machines, based on several patents, during the late 19th century. Most of their machines were used in Boston. <a href=\"http://www.machinecancel.org/exhibits/barlow_boston2/index.html\">William Barlow's Award-Winning Boston Machine Cancel Exhibit</a> is a great starting-place for learning about the evolution of these machines.</p>",
+"<p>Ah, but you say, I came here because my cancellation is pre-1900, not because it is necessarily an American machine example. If your cancel does not fit the following description, (for now) your only course of action is to try to check <a href=\"machtest_more.html\">the web page with the combinations of postmarks and killers for machine cancels</a> of this time period.</p>",
+
+
+	"<br/><br/><img src=\"machines/american_nonflag_1893.gif\" alt=\"[american 1893 machine cancel]\"/> <p class=\"caption\"> American Bar Machine from Boston, 1893 </p>",
+"<p>An American machine from before 1900 will have the characteristics:</p>",
+"<ul>",
+"<li> The great majority of the earlier American cancels are from Boston, Massachusetts.</li>",
+"<li>See above for the typical dial type. This dial is designated type 'D' by collectors. The primary identification is that the year is curved in the bottom of the circle.</li>",
+"<li>Early machine models had 5 killer bars (see images below), but in most later models of machines, there are 6 and only 6 bars, and they are fairly thick. In any machine model, the bars may or may not contain a diespace. If there is a die space present it can be empty (gap in bars), or contain a letter or number amongst the bars. The example above has a large '3' in the diespace.</li>",
+"</ul>",
+"<p>The American company created other non-flag markings, some of which are shown below:</p>",
+	"<br/><br/><img src=\"machines/early_american_bar.jpg\" alt=\"[american bar 1890 machine cancel]\"/> <p class=\"caption\"> American Bar Machine from Boston, 1890 </p>",
+"<p>The 6 bar killer is positioned above center, bars arranged convex on left, nearest to the circular dial postmark.</p>", 
+	"<br/><br/><img src=\"machines/american_rimless_boston.jpg\" alt=\"[american bar 1889 machine cancel with rimless dial]\"/> <p class=\"caption\"> American Rimless Bar Machine from Boston, 1889 </p>",
+"<p>The dial is rimless, often used on 3rd class mail, killer has 5 bars, convex on left.</p>", 
+	"<br/><br/><img src=\"machines/american_straight33.jpg\" alt=\"[american bar 1890 machine cancel ]\"/> <p class=\"caption\"> American Bar Machine from Boston, 1890 </p>",
+"<p>The 5 killer bars are convex shaped on left.</p>", 
+	"<br/><br/><img src=\"machines/american_boston_bar_vertical.jpg\" alt=\"[american bar 1892 machine cancel with vertical bar in killer ]\"/> <p class=\"caption\"> American Bar Machine from Boston, 1892 </p>",
+"<p>The 5 killer bars are convex on left, and have a vertical bar crossing them near the postmark. </p>",
+	"<br/><br/><img src=\"machines/barnard_fitchburg.jpg\" alt=\"[american (barnard patent) 1893 machine cancel ]\"/> <p class=\"caption\"> American (Barnard Patent) Machine from Boston, 1893 </p>",
+"<p>This is a different machine from those shown on this page, the primary identification point being the 'gripper' marks to the left of the circular postmark, and the use of a 7-bar killer. </p>"
+
+]
+],
+["endpointCONSTANTINE",
+"Constantine Machines ",
+"Discussion of the Constantine machine cancel devices and impressions",
+"constantine",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Constantine</h3>",
+"<p> The Constantine machines appear from the New York City area. They are uncommon.</p>",
+
+	"<br/><br/><img src=\"machines/constantine_machine.jpg\" alt=\"[constantine machine from new york city, 1893]\"/> <p class=\"caption\"> Constantine Machine from New York City, 1893 </p>"
+
+]
+],
+["endpointHAMPDEN",
+"Hampden Machines ",
+"Discussion of the Hampden machine cancel devices and impressions",
+"hampden",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Hampden</h3>",
+"<p>Your cancellation was made by a machine of The Hampden Cancelling Machine Company of Holyoke, Massachusetts. Examples of this machine are not particularly common.</p>",
+
+	"<br/><br/><img src=\"machines/hampden.gif\" alt=\"[hampden machine ]\"/> <p class=\"caption\"> Hampden Machine Example </p>"
+
+]
+],
+["endpointDASHED",
+"Machine Markings with Horizontal Dashed or Dotted Lines ",
+"Discussion of markings that show a killer or dashed or dotted horizontal lines",
+"doremus, whitehead",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Killer with Dashed or Dotted Horizontal Lines </h3>",
+"<p> Your machine cancel was most likely made by a machine sold by the Doremus Company. There was a rare cancel machine that impressed dashed lines as a receiving mark. The much more common Doremus machine is designated as the type 'C'. This machine had a killer made up of dotted horizontal lines. Another machine type from this company impressed dashed horizontal lines.</p>",
+
+	"<br/><br/><img src=\"machines/doremus_typec.jpg\" alt=\"[doremus machine  with horizontal dotted line killer]\"/> <p class=\"caption\"> Doremus type 'C' has horizontal dotted lines </p>",
+	"<br/><br/><img src=\"machines/doremus_dashed.jpg\" alt=\"[doremus machine  with horizontal dashed line killer]\"/> <p class=\"caption\"> Another Doremus type with horizontal dashed lines </p>",
+	"<br/><br/><img src=\"machines/whiteh.gif\" alt=\"[whitehead machine  (rare)]\"/> <p class=\"caption\"> Whitehead receiving marking (very rare) </p>",
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#doremus\"> on my Machine Web page (Doremus).</a> and <a href=\"http://swansongrp.com/machtest/machine2.html#whitehead\"> (Whitehead).</a> </p>"
+
+
+]
+],
+["endpointAMERICAN_FLAG",
+"Machine Markings with Flag or Flag-Like Killer",
+"Discussion of markings that show a killer in the shape of the American Flag or are 'flag-like'",
+"american, flag, american flag, cummins, time-cummins, barry, hampden, handstamp",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Killer in the Shape of the American Flag (or Flag-Like)</h3>",
+"<p> Your machine cancel was most probably made by an American machine that impressed a U. S. flag as the killer. These types of machines were in use for many years, and were the lifetime study of Frederick Langford. His book has remained the most comprehensive listing of such cancels. Note that some of the 'flag killers' are in fact banners with slogans or post office branch names. However, the basic flag design remains for the American machines.</p>",
+"<p> Note however, that there are some other  flag or flag-like machine cancels, as noted by Langford. Most of the non-American 'flags' are uncommon to rare.</p>",
+"<p id=\"other_flag\">For example, the Time-Marking/Cummins company produced flag cancel machines for <a href=\"#lahaina\">Lahaina, Hawaii</a>, and <a href=\"#leesburg\">Leesburg, Florida</a>. In addition, the <a href=\"#hamp\">Hampden company produced a flag cancel</a> used for a short time in Washington, DC. Finally, <a href=\"#barrf\">Barr-Fyke had flag-like killers</a> on some of their cancellations. The markings mentioned here were discussed and illustrated in Langford's flag cancel book.</p>",
+
+"<p>It should also be noted, that there were a number of <a href=\"#hand\">flag cancels created as handstamps</a>. They may look like American machine cancels, but are actually handstamps. They can usually be identified by the large postmark dial circle, much larger in diameter than the circle used by the American machine.</p>",
+
+
+	"<br/><br/><img src=\"machines/balboa_island_flag.jpg\" alt=\"[american flag  machine  used in balboa island california]\"/> <p class=\"caption\"> Flag Cancel Impressed by Typical American Machine</p>",
+	"<br/><br/><img src=\"machines/boston_circuit.jpg\" alt=\"[american flag machine used for boston circuit (trolley car) RPO]\"/> <p class=\"caption\"> Station 'flag' cancel impressed by American machine (Boston Circuit, Trolley Car, RPO) </p>",
+
+	"<br/><br/><img src=\"machines/american_slogan.jpg\" alt=\"[american flag machine with slogan inside flag killer]\"/> <p class=\"caption\"> Slogan 'flag' cancel impressed by American machine (WW I Era) </p>",
+	"<br/><br/><img src=\"machines/involute_flag.jpg\" alt=\"[american flag machine with 'involute' flag killer]\"/> <p class=\"caption\"> 'Involute flag' cancel impressed by early model American machine </p>",
+	"<br/><br/><img id=\"lahaina\" src=\"machines/lahaina_cummins_flag.jpg\" alt=\"[cummins flag machine from lahaina hawaii (rare)]\"/> <p class=\"caption\"> Rare flag cancel of Lahaina, Hawai'i impressed by Time-Marking/Cummins machine </p>",
+	"<br/><br/><img id=\"leesburg\"  src=\"machines/cummins_flag.jpg\" alt=\"[cummins flag machine from leesburg florida (rare)]\"/> <p class=\"caption\"> Rare flag cancel of Leesburg, Florida impressed by Time-Marking/Cummins machine (image from Langford book) </p>",
+	"<br/><br/><img id=\"barrf\"  src=\"machines/barr-fyke_flag.jpg\" alt=\"[barr-fyke flag-like machine ]\"/> <p class=\"caption\"> Flag-like cancel impressed by Barr-Fyke machines (image from Langford book)</p>",
+	"<br/><br/><img id=\"hamp\"  src=\"machines/hampden_flag.jpg\" alt=\"[hampden flag machine from Washington, DC (rare)]\"/> <p class=\"caption\"> Flag cancel impressed by Hampden machine (rare, image from Langford Book)</p>",
+	"<br/><br/><img id=\"hand\" src=\"machines/flag_handstamp_composit.jpg\" alt=\"[handstamp with flag killer (probably a composit)]\"/> <p class=\"caption\"> Handstamp that looks like a flag machine (probably a composit) </p>",
+
+
+
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html#american\"> on my Machine Web page.</a> </p>"
+
+]
+],
+["endpointPOTTER_VAIL",
+"Potter/Vail Machine Markings ",
+"Discussion of the Potter &amp; Vail machine marking",
+"potter , vail, potter vail, herringbone, herringbone pattern",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Potter/Vail Herringbone</h3>",
+"<p> The Potter and Vail machine was experimental in nature, and is quite rare. They are seen from only a few smaller towns in Illinois, from 1898 to 1900. This herringbone pattern cancel has been seen with both oval and rectilinear postmarks.</p>",
+
+
+
+	"<br/><br/><img src=\"machines/potter_and_vail_experimental_machine.jpg\" alt=\"[potter vail experimental machine  ]\"/> <p class=\"caption\"> Potter and Vail experimental machine</p>"
+
+
+]
+],
+["endpointKRAG",
+"Krag Repeater Machine Markings ",
+"Discussion of the Krag repeater machine marking",
+"krag, repeater, repeating cancel, experimental",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Krag Repeater</h3>",
+"<p> There are only a few examples of the Krag machine used in the United States. This machine was European in origin and was used throughout that part of the world. The machine was tested in 1907 in Washington, DC. It is unique looking, because the entire cancel (circle and horizontal bars) repeats across the envelope or card being cancelled.</p>",
+
+	"<br/><br/><img src=\"machines/krag_repeater.jpg\" alt=\"[krag repeater experimental machine  ]\"/> <p class=\"caption\"> Rare example of Krag machine used in Washington, DC </p>"
+
+]
+],
+["endpointSERVICE_STRAIGHT",
+"Circular Dial Service marking with year in a straight line",
+"Discussion of service markings with circular dials and the year in a straight line",
+"straight line year, american, service marking, received, train late",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Service Markings with Circular Dial and Year in a Straight Line</h3>",
+"<p> The dials with split or continuous horizontal year dates are for the most part American machines. Note, however, that the Barry circle postmark could have been used as a service marking. The service markings from these machines include a wide variety, from 'Train Late' to various 'Received' designs.</p>",
+
+	"<br/><br/><img src=\"machines/american_transit.jpg\" alt=\"[american service marking transit]\"/> <p class=\"caption\"> 'Transit' service marking impressed by American machine </p>",
+	"<br/><br/><img src=\"machines/american_received.jpg\" alt=\"[american received service marking]\"/> <p class=\"caption\"> 'Received' service marking impressed by American machine </p>",
+	"<br/><br/><img src=\"machines/american_received2.jpg\" alt=\"[american received service marking]\"/> <p class=\"caption\"> 'Received' service marking impressed by American machine </p>",
+	"<br/><br/><img src=\"machines/american_received3.jpg\" alt=\"[american received service marking]\"/> <p class=\"caption\"> 'Received' service marking impressed by American machine </p>",
+	"<br/><br/><img src=\"machines/american_train_late.jpg\" alt=\"[american train late service marking]\"/> <p class=\"caption\"> 'Train Late' service marking impressed by American machine </p>",
+	" <p> There is a bit more information available about these machines <a href=\"http://swansongrp.com/machtest/machine2.html\"> on my Machine Web page.</a> </p>"
+
+]
+],
+["endpointSERVICE_CURVED",
+"Circular Dial Service marking with year in a curve at the bottom of the dial (if a dial is present)",
+"Discussion of service markings with circular dials and the year in a curve at the bottom of the dial (if a dial is present)",
+"curved line year, barry, service marking, received, train late",
+[
+        "<h3> U.S. Machine Cancel Identifier --  Service Markings with Circular Dial and Year in a Curved Line at the Bottom of the Dial (if any)</h3>",
+"<p> This page has service markings from primarily the Barry machines. These machines impressed several postmark types, including rectilinear, oval, and circle. The service markings impressed included the usual varieties.</p>",
+
+"<p>Note that 'straight-line' and rectilinear postmarks were created by a number of manufacturers, and these same companies had service markings, sometimes with markings, and sometimes with the rectilinear postmark alone. For instance, it is known that some Barry rectilinear postmarks have been used alone as 'received' markings (no killer bars, or other marking).</p>",
+
+"<p>Older (pre-1900) versions of the American machine had a dial with the year date curved in the bottom of the dial. An item below is shown with a pre-1900 received cancel.</p>",
+
+"<p>Any part of the <a href=\"e_PERFECTION1.html\">Perfection machine</a> cancel, for instance, could be used as a 'receiving' mark, as well as an originating mark. This was due to both the low volume of mail at the small post offices that purchased this device, as well as the simplicity of the device.</p>",
+
+	"<br/><br/><img src=\"machines/barry_circle_received.jpg\" alt=\"[barry service marking received]\"/> <p class=\"caption\"> 'Received' service marking impressed by Barry machine (circular postmark) </p>",
+
+	"<br/><br/><img src=\"machines/barry_train_late.jpg\" alt=\"[barry train late service marking]\"/> <p class=\"caption\"> 'Train Late' service marking impressed by Barry machine (rectilinear postmark) </p>",
+	"<br/><br/><img src=\"machines/barry_oval_train_late.jpg\" alt=\"[barry train late service marking with oval postmark]\"/> <p class=\"caption\"> 'Train Late' service marking impressed by Barry machine (oval postmark) </p>",
+
+	"<br/><br/><img src=\"machines/american_received_old.jpg\" alt=\"[american received service marking pre-1900]\"/> <p class=\"caption\"> 'Received' service marking impressed by American machine (pre-1900)</p>"
+
+]
+],
+["endpointMORE",
+"Choose Machine Cancel from Various Types",
+"This page allows you to Choose Machine Cancel from Various Types",
+"machine cancel types",
+[
+        "<h3> U.S. Machine Cancel Identifier -- More Types</h3>",
+        "<p>Your machine cancel does not fit the exact pattern for this 'finder'. Therefore you should go to <a href=\"machtest_more.html\">a page where you can select the dial and killer separately.</a>. This page should redirect there immediately.</p>",
+	"<script type=\"text/javascript\" >\n",
+	"window.location.href = \"machtest_more.html\";",
+	"</script>\n"
+]
+]
+],
+
+"boilerplate_doc":
+["boilerplate items follow, they are simply written to the output stream as HTML"],
+
+    "static_header":
+[
+        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n",
+        "<!DOCTYPE html\n",
+        "PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n",
+        "<html>\n",
+        "<!-- start static header content -->",
+        "<head>\n",
+        "<meta http-equiv=\"Content-Type\" content=\"text/html\"/>\n",
+        "<meta name=\"Author\" content=\"Bob Swanson\"/>",
+	" PAGE_COPYRIGHT",
+	"<link rel=\"stylesheet\" href=\"http://swansongrp.com/vanilla-framework-version-1.8.0.min.css\" />",
+
+       "<title>PAGE_TITLE</title>",
+       "<meta name=\"keywords\" content=\"",
+	  "machine cancellations, identifier, postmark, postmarks, postal history, covers, postcards, postcard, ",
+	" ADDITIONAL_KEYWORDS",
+	"\"/>",
+        "<meta name=\"description\" content=\"",
+	"This page is part of the 'Machine Cancel Finder' website, stored with the Swanson web pages. Using these pages, it may be possible to identify a machine cancel from the United States from about 1900 to 1920. ",
+	"ADDITIONAL_PAGE_DESCRIPTION",
+	 "\"/>",
+	"  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>",
+
+        "<!-- not used? <script type=\"text/javascript\" src=\"utility.js\">\n",
+        " must be full tag set to work with IE 6 \n",
+        "</script> -->\n",
+                 
+	"<!-- override POEM settings and add special items for our use \n",
+	"<style type=\"text/css\">\n",
+	"a\n",
+	"  {\n",
+	"  /* font-size: 80%; */ \n",
+	"  font-size: 110%; \n",
+	"  }\n",
+	"  a.seealso\n",
+	"  {\n",
+	"  font-size: 100%;  /* inline no special size */\n",
+	"  }\n",
+	"</style> -->\n",
+	"<!-- override Vanilla settings and add special items for our use \n -->",
+	"<style type=\"text/css\">\n",
+	"p.caption\n",
+	"  {\n",
+	"   clear:left; \n",
+	"   text-align: center; \n",
+	"   font-size: 80%; \n",
+	"   margin-bottom: 2em; \n",
+	"   font-style: italic;\n",
+	"  }\n",
+	"</style>\n",
+        "</head>\n",
+        "<body>\n",
+	"<section class=\"p-strip \" style=\"border: 1px solid #cdcdcd;\">",
+	 " <div class=\"row\">",
+	  "  <div class=\"col-2\">",
+		"<p/>",
+		"</div>",
+	    "<div class=\"col-8\">",
+	    "<!-- all body content here -->",
+	"<h1>PAGE_TITLE</h1>",
+
+        "<!-- end static header content -->\n\n" 
+],
+
+    "page_end":
+[
+		"</div> <!-- end 8 wide -->",
+	  "  <div class=\"col-2\">",
+		"<p/>",
+		"</div>",
+		"</div> <!-- end row -->",
+	 " <div class=\"row\">",
+	  "  <div class=\"col-12\">",
+	"<hr/><h3>More Links</h3>",
+	"<p><a   href=\"http://swansongrp.com/machtest/machtest.html\">Return to Start of Machine Cancel Finder</a></p>",
+	"<p><a   href=\"http://swansongrp.com/pos_mach.html\">Bob Swanson's Machine Cancel Page</a></p>",
+	"<p> <a href=\"http://swansongrp.com/posthist.html\">Bob Swanson's Postal History Page</a></p>",
+        "<p> <a href=\"http://machinecancel.org\">Machine Cancel Society Page</a></p>",
+	"<p> <a href=\"http://swansongrp.com/feedback.html\">Swanson Contact Info</a></p>",
+	"<p><a href=\"http://swansongrp.com\">Return to Swansons Main Page</a></p>",
+	"<p ><hr/> Page Layout Design Made Possible by:",
+          "<a href=\"https://vanillaframework.io/\">Vanilla</a>.</p>",
+	" <p> <br/><br/>Updated PAGE_PUBLISH_DATE</p>\n",
+
+		"</div> <!-- end 12 across -->",
+		"</div> <!-- end row -->",
+		"</section>",
+	"</body></html>\n"
+]
+
+}
