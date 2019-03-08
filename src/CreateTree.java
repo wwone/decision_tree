@@ -20,6 +20,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 /*
  * updated 2/9/2019
  * 
+ * THIS PROGRAM is the work of Robert Swanson
+ * bobswansonp@protonmail.com
+ *
+ * It is being freely offered here under the
+ * MIT license, 2019.
+ *
  * Read the JSON for a query tree and results and
  * make lots of HTML files for the "machine cancel finder"
  * 
