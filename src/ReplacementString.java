@@ -3,6 +3,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /*
+*
+* THIS PROGRAM is the work of Robert Swanson
+* bobswansonp@protonmail.com
+*
+* It is being offered freely under the MIT license, 2019
+*
  * container for the replacement string
  * needed, when we are modifying the boilerplate
  * from a project-agnostic, format-specific
